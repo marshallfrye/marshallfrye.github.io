@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marshall B. Frye — Materials Scientist</title>
+  <meta name="description" content="Marshall B. Frye — PhD Materials Science and Engineering, Georgia Tech. Ferroelectric thin films, interface engineering, polar materials for memory and energy applications.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --c-bg:         #F8FAFC;
+      --c-bg-blue:    #EFF6FF;
+      --c-navy:       #0D1B2E;
+      --c-ink:        #1E293B;
+      --c-mid:        #475569;
+      --c-muted:      #64748B;
+      --c-accent:     #0369A1;
+      --c-accent-mid: #0284C7;
+      --c-accent-lt:  #E0F2FE;
+      --c-accent-xlt: #F0F9FF;
+      --c-border:     #CBD5E1;
+      --c-border-lt:  #E2E8F0;
+      --c-tag-bg:     #EFF6FF;
+      --c-tag-txt:    #0369A1;
+      --c-dark:       #0F172A;
+      --c-dark-mid:   #1E293B;
+      --ff-head:      'Crimson Pro', Georgia, serif;
+      --ff-body:      'Atkinson Hyperlegible', system-ui, sans-serif;
+      --ease:         cubic-bezier(.4,0,.2,1);
+      --r-card:       12px;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md:    0 4px 16px rgba(0,0,0,.08), 0 1px 4px rgba(0,0,0,.04);
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--ff-body);
+      color: var(--c-ink);
+      font-size: 16px;
+      line-height: 1.65;
+      background: linear-gradient(180deg,
+        var(--c-bg) 0%,
+        var(--c-bg-blue) 25%,
+        var(--c-bg) 55%,
+        var(--c-bg-blue) 80%,
+        var(--c-bg) 100%);
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font: inherit; border: none; background: none; }
+    ul { list-style: none; }
+
+    /* ── Skip link ── */
+    .skip-link {
+      position: absolute; left: -9999px; top: 0; padding: .5rem 1rem;
+      background: var(--c-accent); color: #fff; border-radius: 0 0 8px 0;
+    }
+    .skip-link:focus { left: 0; z-index: 9999; }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(4rem);
+      background: var(--c-dark); color: #fff; padding: .6rem 1.4rem;
+      border-radius: 100px; font-size: .875rem; z-index: 1000;
+      opacity: 0; transition: opacity .25s var(--ease), transform .25s var(--ease);
+      pointer-events: none; white-space: nowrap;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── Back to top ── */
+    #btt {
+      position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px;
+      background: var(--c-accent); color: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; z-index: 500; opacity: 0; pointer-events: none;
+      transition: opacity .3s var(--ease), transform .3s var(--ease);
+      transform: translateY(8px); box-shadow: var(--shadow-md);
+    }
+    #btt.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    #btt:hover { background: var(--c-accent-mid); }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(248,250,252,.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--c-border-lt);
+      transition: box-shadow .3s var(--ease);
+    }
+    nav.scrolled { box-shadow: var(--shadow-sm); }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+      height: 60px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--ff-head); font-size: 1.25rem; font-weight: 600;
+      color: var(--c-accent); letter-spacing: -.01em;
+    }
+    .nav-links { display: flex; gap: .25rem; }
+    .nav-links a {
+      padding: .4rem .85rem; border-radius: 6px;
+      font-size: .875rem; color: var(--c-mid);
+      transition: background .2s, color .2s;
+    }
+    .nav-links a:hover { background: var(--c-accent-lt); color: var(--c-accent); }
+    .nav-links a.active { color: var(--c-accent); font-weight: 700; }
+    .nav-cta {
+      padding: .4rem 1rem; border-radius: 6px;
+      background: var(--c-accent); color: #fff !important;
+      font-size: .875rem; transition: background .2s;
+    }
+    .nav-cta:hover { background: var(--c-accent-mid) !important; color: #fff !important; }
+
+    /* hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; padding: .5rem; }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--c-ink); border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+    .mobile-menu {
+      display: none; flex-direction: column; padding: 1rem 2rem 1.5rem;
+      background: rgba(248,250,252,.98); border-top: 1px solid var(--c-border-lt);
+    }
+    .mobile-menu a {
+      padding: .7rem 0; font-size: 1rem; color: var(--c-mid);
+      border-bottom: 1px solid var(--c-border-lt);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu.open { display: flex; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ── Layout ── */
+    .section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-eyebrow {
+      font-family: var(--ff-body); font-size: .75rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--c-accent); margin-bottom: .75rem;
+    }
+    .section-title {
+      font-family: var(--ff-head); font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 300; color: var(--c-navy); line-height: 1.15;
+      margin-bottom: 1.25rem; letter-spacing: -.02em;
+    }
+    .section-lead {
+      font-size: 1.0625rem; color: var(--c-mid); max-width: 680px; line-height: 1.7;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      position: relative; overflow: hidden; padding-top: 60px;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 65% 55% at 72% 38%, rgba(3,105,161,.08) 0%, transparent 70%),
+        radial-gradient(ellipse 45% 40% at 15% 70%, rgba(14,165,233,.05) 0%, transparent 65%),
+        radial-gradient(ellipse 30% 30% at 85% 80%, rgba(56,189,248,.04) 0%, transparent 60%);
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; padding: 4rem 2rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .hero-eyebrow {
+      font-size: .75rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--c-accent); margin-bottom: 1rem;
+    }
+    .hero-name {
+      font-family: var(--ff-head); font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 300; color: var(--c-navy); line-height: 1.05;
+      letter-spacing: -.03em; margin-bottom: 1.25rem;
+    }
+    .hero-name em { font-style: italic; color: var(--c-accent); }
+    .hero-sub {
+      font-size: 1.0625rem; color: var(--c-mid); line-height: 1.7;
+      max-width: 520px; margin-bottom: 2rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      padding: .75rem 1.75rem; background: var(--c-accent); color: #fff;
+      border-radius: 8px; font-size: .9375rem; font-weight: 700;
+      transition: background .2s, transform .15s;
+    }
+    .btn-primary:hover { background: var(--c-accent-mid); transform: translateY(-1px); }
+    .btn-ghost {
+      padding: .75rem 1.75rem; border: 1.5px solid var(--c-border); color: var(--c-ink);
+      border-radius: 8px; font-size: .9375rem;
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--c-accent); background: var(--c-accent-xlt);
+      transform: translateY(-1px);
+    }
+    .hero-stats {
+      display: flex; flex-direction: column; gap: 1.5rem; position: relative;
+    }
+    .hero-stats::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; background: linear-gradient(180deg, var(--c-accent-lt), var(--c-accent), var(--c-accent-lt));
+      border-radius: 3px;
+    }
+    .stat-item { padding-left: 1.5rem; }
+    .stat-num {
+      font-family: var(--ff-head); font-size: 2.5rem; font-weight: 600;
+      color: var(--c-accent); line-height: 1; margin-bottom: .2rem;
+    }
+    .stat-label { font-size: .875rem; color: var(--c-mid); }
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-stats { flex-direction: row; flex-wrap: wrap; }
+      .hero-stats::before { display: none; }
+      .stat-item { padding-left: 0; border-left: 3px solid var(--c-accent); padding-left: 1rem; }
+    }
+
+    /* ── Research cards ── */
+    .research-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .research-card {
+      background: rgba(255,255,255,.8);
+      border: 1px solid var(--c-border-lt);
+      border-radius: var(--r-card); padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+      opacity: 0; transform: translateY(20px);
+    }
+    .research-card.revealed { opacity: 1; transform: translateY(0); }
+    .research-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .card-num {
+      font-family: var(--ff-head); font-size: 2rem; font-weight: 600;
+      color: var(--c-accent-lt); margin-bottom: 1rem; line-height: 1;
+    }
+    .card-title {
+      font-family: var(--ff-head); font-size: 1.1875rem; font-weight: 600;
+      color: var(--c-navy); margin-bottom: .65rem; line-height: 1.3;
+    }
+    .card-body { font-size: .9375rem; color: var(--c-mid); line-height: 1.65; }
+
+    /* ── Publications ── */
+    .pub-controls {
+      display: flex; gap: .5rem; margin: 1.5rem 0 2rem; flex-wrap: wrap;
+    }
+    .pub-btn {
+      padding: .45rem 1.1rem; border-radius: 100px;
+      border: 1.5px solid var(--c-border); font-size: .875rem; color: var(--c-mid);
+      transition: all .2s var(--ease);
+    }
+    .pub-btn.active {
+      background: var(--c-accent); border-color: var(--c-accent);
+      color: #fff; font-weight: 700;
+    }
+    .pub-btn:hover:not(.active) { border-color: var(--c-accent); color: var(--c-accent); }
+    .pub-btn.tab-divider { margin-left: .5rem; border-left: 1.5px solid var(--c-border); padding-left: 1.1rem; }
+    #pres-list[hidden], #pub-list[hidden] { display: none; }
+
+    .pub-list { display: flex; flex-direction: column; gap: .75rem; }
+    .pub-item {
+      background: rgba(255,255,255,.85);
+      border: 1px solid var(--c-border-lt);
+      border-radius: var(--r-card);
+      overflow: hidden;
+      transition: box-shadow .2s;
+    }
+    .pub-item:hover { box-shadow: var(--shadow-sm); }
+    .pub-item[hidden] { display: none; }
+
+    .pub-header {
+      width: 100%; display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.25rem 1.5rem; text-align: left; cursor: pointer;
+    }
+    .pub-num {
+      font-family: var(--ff-head); font-size: 1rem; font-weight: 600;
+      color: var(--c-accent); min-width: 1.5rem; padding-top: .15rem;
+    }
+    .pub-meta { flex: 1; min-width: 0; }
+    .pub-role {
+      font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--c-accent); margin-bottom: .3rem;
+    }
+    .pub-role.co { color: var(--c-muted); }
+    .pub-title {
+      font-family: var(--ff-head); font-size: 1.0625rem; font-weight: 600;
+      color: var(--c-navy); line-height: 1.3; margin-bottom: .35rem;
+    }
+    .pub-journal { font-size: .875rem; color: var(--c-muted); }
+    .pub-journal strong { color: var(--c-mid); }
+    .pub-chevron {
+      font-size: .75rem; color: var(--c-muted); padding-top: .5rem;
+      transition: transform .3s var(--ease); flex-shrink: 0;
+    }
+    .pub-item.open .pub-chevron { transform: rotate(180deg); }
+
+    .pub-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height .4s var(--ease);
+    }
+    .pub-body-inner {
+      padding: 0 1.5rem 1.25rem 3.75rem;
+      border-top: 1px solid var(--c-border-lt);
+    }
+    .pub-abstract {
+      font-size: .9375rem; color: var(--c-mid); line-height: 1.65;
+      margin-top: 1rem; margin-bottom: .75rem;
+    }
+    .pub-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .pub-tag {
+      padding: .2rem .65rem; border-radius: 100px;
+      background: var(--c-tag-bg); color: var(--c-tag-txt);
+      font-size: .75rem; font-weight: 700;
+    }
+
+    /* ── Awards ── */
+    .awards-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1rem; margin-top: 2.5rem;
+    }
+    .award-card {
+      background: rgba(255,255,255,.85);
+      border: 1px solid var(--c-border-lt);
+      border-radius: var(--r-card); padding: 1.25rem 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      box-shadow: var(--shadow-sm);
+      opacity: 0; transform: translateY(16px);
+      transition: opacity .5s var(--ease), transform .5s var(--ease);
+    }
+    .award-card.revealed { opacity: 1; transform: translateY(0); }
+    .award-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--c-accent-lt); color: var(--c-accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .award-info { flex: 1; }
+    .award-name {
+      font-family: var(--ff-head); font-size: 1rem; font-weight: 600;
+      color: var(--c-navy); margin-bottom: .2rem; line-height: 1.3;
+    }
+    .award-org { font-size: .875rem; color: var(--c-muted); }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem; margin-top: 3rem;
+    }
+    .skill-group {
+      background: rgba(255,255,255,.8);
+      border: 1px solid var(--c-border-lt);
+      border-radius: var(--r-card); padding: 1.5rem 1.75rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .skill-group-title {
+      font-size: .7rem; font-weight: 700; letter-spacing: .13em;
+      text-transform: uppercase; color: var(--c-accent);
+      margin-bottom: 1rem; padding-bottom: .75rem;
+      border-bottom: 1px solid var(--c-border-lt);
+    }
+    .skill-tag-list {
+      display: flex; flex-wrap: wrap; gap: .45rem;
+    }
+    .skill-tag {
+      font-size: .8125rem; color: var(--c-mid);
+      padding: .3rem .75rem; border-radius: 100px;
+      background: var(--c-bg); border: 1px solid var(--c-border-lt);
+      line-height: 1.4;
+    }
+
+    /* ── Vision ── */
+    .vision-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .vision-card {
+      background: rgba(255,255,255,.8);
+      border: 1px solid var(--c-border-lt);
+      border-radius: var(--r-card); padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      opacity: 0; transform: translateY(16px);
+      transition: opacity .5s var(--ease), transform .5s var(--ease);
+    }
+    .vision-card.revealed { opacity: 1; transform: translateY(0); }
+    .vision-num {
+      font-family: var(--ff-head); font-size: .875rem; font-weight: 600;
+      color: var(--c-accent); margin-bottom: .6rem;
+    }
+    .vision-title {
+      font-family: var(--ff-head); font-size: 1.125rem; font-weight: 600;
+      color: var(--c-navy); margin-bottom: .65rem; line-height: 1.3;
+    }
+    .vision-body { font-size: .9375rem; color: var(--c-mid); line-height: 1.65; }
+
+    /* ── Contact / footer ── */
+    #contact {
+      background: linear-gradient(135deg, var(--c-dark) 0%, var(--c-dark-mid) 100%);
+      color: #fff; padding: 5rem 2rem;
+    }
+    .contact-inner { max-width: 1100px; margin: 0 auto; }
+    .contact-eyebrow {
+      font-size: .75rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(255,255,255,.45);
+      margin-bottom: .75rem;
+    }
+    .contact-title {
+      font-family: var(--ff-head); font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 300; margin-bottom: .75rem; line-height: 1.15;
+    }
+    .contact-sub {
+      color: rgba(255,255,255,.55); font-size: 1rem; margin-bottom: 3rem;
+    }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+    }
+    @media (max-width: 700px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-links { display: flex; flex-direction: column; gap: .75rem; }
+    .contact-link {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem 1.25rem; border-radius: var(--r-card);
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      transition: background .2s, border-color .2s;
+      cursor: pointer;
+    }
+    .contact-link:hover { background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.2); }
+    .contact-link-left { display: flex; flex-direction: column; gap: .15rem; }
+    .contact-link-label { color: #fff; font-size: .9375rem; font-weight: 700; }
+    .contact-link-sub { font-size: .8125rem; color: rgba(255,255,255,.45); }
+    .copy-badge {
+      font-size: .75rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: rgba(255,255,255,.35);
+      padding: .25rem .65rem; border: 1px solid rgba(255,255,255,.15);
+      border-radius: 100px; transition: all .2s;
+    }
+    .contact-link:hover .copy-badge {
+      color: var(--c-accent-mid); border-color: var(--c-accent-mid);
+    }
+
+    .availability { }
+    .avail-title {
+      font-family: var(--ff-head); font-size: 1.375rem; font-weight: 400;
+      color: #fff; margin-bottom: 1.25rem;
+    }
+    .avail-items { display: flex; flex-direction: column; gap: 1rem; }
+    .avail-item { display: flex; gap: .75rem; align-items: flex-start; }
+    .avail-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--c-accent-mid); margin-top: .5rem; flex-shrink: 0;
+    }
+    .avail-item-title { color: #fff; font-weight: 700; margin-bottom: .15rem; font-size: .9375rem; }
+    .avail-item-body { color: rgba(255,255,255,.5); font-size: .875rem; line-height: 1.55; }
+
+    footer {
+      background: var(--c-dark); color: rgba(255,255,255,.3);
+      text-align: center; padding: 1.5rem 2rem; font-size: .8125rem;
+    }
+    footer a { color: rgba(255,255,255,.35); }
+    footer a:hover { color: rgba(255,255,255,.6); }
+
+    /* ── Scroll reveal ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .55s var(--ease), transform .55s var(--ease); }
+    .reveal.revealed { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+
+    /* ── Dividers ── */
+    .section-divider {
+      max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+    }
+    .section-divider hr {
+      border: none; border-top: 1px solid var(--c-border-lt);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+<div id="toast" role="status" aria-live="polite">Copied to clipboard</div>
+<button id="btt" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- NAV -->
+<nav id="nav" aria-label="Site navigation">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#hero">M. Frye</a>
+    <div class="nav-links" role="list">
+      <a href="#research" role="listitem">Research</a>
+      <a href="#publications" role="listitem">Publications</a>
+      <a href="#awards" role="listitem">Awards</a>
+      <a href="#methods" role="listitem">Methods</a>
+      <a href="#vision" role="listitem">Vision</a>
+      <a href="#contact" class="nav-cta" role="listitem">Contact</a>
+    </div>
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <a href="#research">Research</a>
+    <a href="#publications">Publications</a>
+    <a href="#awards">Awards</a>
+    <a href="#methods">Methods</a>
+    <a href="#vision">Vision</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="hero" aria-label="Introduction">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Ph.D. Materials Science and Engineering &middot; Georgia Tech</p>
+      <h1 class="hero-name">Marshall<br><em>B. Frye</em></h1>
+      <p class="hero-sub">I deposit thin films, measure their properties at the nanoscale, and run phase-field simulations to understand how defects and interfaces control ferroelectric behavior at the atomic level.</p>
+      <div class="hero-btns">
+        <a href="#publications" class="btn-primary">View Publications</a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-stats" aria-label="Research statistics">
+      <div class="stat-item">
+        <div class="stat-num">13</div>
+        <div class="stat-label">Peer-reviewed publications</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">7</div>
+        <div class="stat-label">First-author papers</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">400+</div>
+        <div class="stat-label">Thin films deposited</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">$150K+</div>
+        <div class="stat-label">NSF facility awards secured</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main id="main">
+
+<!-- RESEARCH -->
+<section id="research" class="section" aria-label="Research focus">
+  <p class="section-eyebrow">Research Focus</p>
+  <h2 class="section-title">Engineering<br>Polar Materials</h2>
+  <p class="section-lead reveal">I work at the intersection of synthesis, characterization, and phase-field simulation to understand what governs ferroelectric behavior at the atomic level — and how to use that understanding to build better materials for memory and energy applications.</p>
+  <div class="research-grid">
+    <div class="research-card">
+      <div class="card-num">01</div>
+      <h3 class="card-title">Interface and Defect Engineering</h3>
+      <p class="card-body">Oxygen vacancies and interfacial charge do not just degrade devices. They control how polarization switches. In Hf<sub>0.5</sub>Zr<sub>0.5</sub>O<sub>2</sub>, I have mapped how defect populations set the internal bias, coercive field, and remanent polarization.</p>
+    </div>
+    <div class="research-card">
+      <div class="card-num">02</div>
+      <h3 class="card-title">2D Chalcogenide Ferroelectrics</h3>
+      <p class="card-body">SnSe is a van der Waals material with predicted emergent electronic and structural changes as the 2D limit is approached. I developed wafer-scale PLD deposition with monolayer precision and reported the first bulk P-E and PUND measurements on this system.</p>
+    </div>
+    <div class="research-card">
+      <div class="card-num">03</div>
+      <h3 class="card-title">Rare-Earth Hexagonal Ferrites</h3>
+      <p class="card-body">Hexagonal ferrites have unique potential for multiferroic and polar photovoltaic applications, but are hindered by their metastability. I used interfacial engineering to elucidate the stabilization mechanism of ScFeO<sub>3</sub> thin films and expanded the approach to conductive substrates needed for devices.</p>
+    </div>
+    <div class="research-card">
+      <div class="card-num">04</div>
+      <h3 class="card-title">Ferroelectric Photovoltaics and Memory</h3>
+      <p class="card-body">Ferroelectric polarization can store bits and separate light-generated charge carriers at voltages above the bandgap limit. In an invited review in Accounts of Materials Research, I laid out why ferroelectric solar cells have underperformed and what material changes could make them competitive.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- PUBLICATIONS -->
+<section id="publications" class="section" aria-label="Publications">
+  <p class="section-eyebrow">Research Highlights</p>
+  <h2 class="section-title">Publications</h2>
+  <p class="section-lead reveal">13 peer-reviewed publications (7 first author, 1 last author). Click any paper to expand the abstract.</p>
+
+  <div class="pub-controls" role="group" aria-label="Filter publications">
+    <button class="pub-btn active" data-filter="all">All (11)</button>
+    <button class="pub-btn" data-filter="first">First Author (7)</button>
+    <button class="pub-btn" data-filter="co">Co-Author (4)</button>
+    <button class="pub-btn tab-divider" data-filter="presentations">Presentations</button>
+  </div>
+
+  <ul class="pub-list" id="pub-list" aria-label="Publication list">
+
+    <li class="pub-item" data-role="first">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">1</span>
+        <div class="pub-meta">
+          <div class="pub-role">First Author</div>
+          <div class="pub-title">Thickness-Modulated Crystal Structure and Band Gap of 2D SnSe Deposited by Molecular Beam Epitaxy</div>
+          <div class="pub-journal"><strong>npj 2D Materials and Applications</strong> &middot; 2026 &middot; 2 citations</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Shows systematic coupling between film thickness, crystal structure, and optical bandgap in MBE-grown SnSe thin films. Establishes thickness as a tunable parameter for precise control of ferroelectric photodetection and memory properties.</p>
+          <div class="pub-tags">
+            <span class="pub-tag">2D SnSe</span>
+            <span class="pub-tag">MBE</span>
+            <span class="pub-tag">Bandgap tuning</span>
+            <span class="pub-tag">Crystal structure</span>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-role="first">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">2</span>
+        <div class="pub-meta">
+          <div class="pub-role">First Author</div>
+          <div class="pub-title">Stabilizing Metastable Rare-Earth Ferrites on (111) Platinum via an Iron Oxide Interlayer</div>
+          <div class="pub-journal"><strong>ACS Applied Electronic Materials</strong> &middot; 2026</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Engineered FeO<sub>x</sub> interlayers selectively nucleate the polar <em>P</em>6<sub>3</sub><em>cm</em> polymorph of ScFeO<sub>3</sub> on (111) Pt substrates. The reduced interfacial strain enabled scaling of the polar distortion down to the first layer of ScFeO<sub>3</sub>, providing a generalizable design rule for accessing polar rare-earth oxides that cannot be synthesized in bulk.</p>
+          <div class="pub-tags">
+            <span class="pub-tag">ScFeO<sub>3</sub></span>
+            <span class="pub-tag">Polymorph stabilization</span>
+            <span class="pub-tag">PLD</span>
+            <span class="pub-tag">Rare-earth ferrites</span>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-role="first">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">3</span>
+        <div class="pub-meta">
+          <div class="pub-role">First Author</div>
+          <div class="pub-title">Interlayer-Mediated Stabilization of Metastable P6<sub>3</sub>cm ScFeO<sub>3</sub> on Al<sub>2</sub>O<sub>3</sub></div>
+          <div class="pub-journal"><strong>Advanced Materials Interfaces</strong> &middot; 2025 &middot; 1 citation</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Demonstrated that Fe-oxide interlayers drive selective nucleation of the polar phase of ScFeO<sub>3</sub> on c-plane Al<sub>2</sub>O<sub>3</sub>, establishing interlayer-epitaxy as a practical route to polar rare-earth oxide thin films.</p>
+          <div class="pub-tags">
+            <span class="pub-tag">ScFeO<sub>3</sub></span>
+            <span class="pub-tag">Al<sub>2</sub>O<sub>3</sub></span>
+            <span class="pub-tag">Interface engineering</span>
+            <span class="pub-tag">Polar oxides</span>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-role="first">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">4</span>
+        <div class="pub-meta">
+          <div class="pub-role">First Author</div>
+          <div class="pub-title">Enhancing the Conductivity and Crystallinity of (111) Platinum Films via a Two-Temperature Deposition and Substrate Annealing</div>
+          <div class="pub-journal"><strong>Scripta Materialia</strong> &middot; 2025 &middot; 5 citations</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Achieved near-bulk conductivity (9&times;10<sup>6</sup> S/m) and record-low rocking curve FWHM (0.004&deg;) in Pt electrode films by combining two-temperature deposition with substrate annealing, enabling reliable epitaxial heterostructures for ferroelectric device fabrication.</p>
+          <div class="pub-tags">
+            <span class="pub-tag">Platinum electrodes</span>
+            <span class="pub-tag">Epitaxy</span>
+            <span class="pub-tag">XRD</span>
+            <span class="pub-tag">Conductivity</span>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-role="first">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">5</span>
+        <div class="pub-meta">
+          <div class="pub-role">First Author &middot; Invited Review</div>
+          <div class="pub-title">Reaching the Potential of Ferroelectric Photovoltaics</div>
+          <div class="pub-journal"><strong>Accounts of Materials Research</strong> &middot; 2023 &middot; 20 citations</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">An invited perspective laying out why ferroelectric solar cells have underperformed relative to theoretical predictions, and what material and device engineering changes could address the gap. Covers bulk photovoltaic effect mechanisms, current efficiency limits, and near-term routes to improvement.</p>
+          <div class="pub-tags">
+            <span class="pub-tag">Photovoltaics</span>
+            <span class="pub-tag">Bulk photovoltaic effect</span>
+            <span class="pub-tag">Polar oxides</span>
+            <span class="pub-tag">Review</span>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-role="first">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">6</span>
+        <div class="pub-meta">
+          <div class="pub-role">First Author</div>
+          <div class="pub-title">Effect of Degree of Sulfonation in Nanocellulose/Chitosan Composite on Adsorption of Cationic Dye as Opioid Simulant</div>
+          <div class="pub-journal"><strong>Cellulose Chemistry and Technology</strong> &middot; 2021 &middot; 8 citations</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Developed sulfonated nanocellulose-chitosan composite membranes achieving 68.56 mg/g adsorption capacity for opioid-simulant dyes. Performance is competitive with activated carbon while using renewable and biodegradable feedstocks.</p>
+          <div class="pub-tags">
+            <span class="pub-tag">Nanocellulose</span>
+            <span class="pub-tag">Water treatment</span>
+            <span class="pub-tag">Adsorption</span>
+            <span class="pub-tag">Sustainable materials</span>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-role="co">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">7</span>
+        <div class="pub-meta">
+          <div class="pub-role co">Co-Author</div>
+          <div class="pub-title">Determining the Effect of Bi<sub>2</sub>O<sub>3</sub> on the Microstructure and Electrical Response of Cold Sintered ZnO Varistors</div>
+          <div class="pub-journal"><strong>Journal of the American Ceramic Society</strong> &middot; 2026</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Examines how Bi<sub>2</sub>O<sub>3</sub> additive concentration affects grain boundary microstructure and nonlinear electrical response in cold-sintered ZnO varistors, offering processing routes to tunable breakdown voltage in oxide-based surge protection devices.</p>
+          <div class="pub-tags">
+            <span class="pub-tag">ZnO</span>
+            <span class="pub-tag">Varistors</span>
+            <span class="pub-tag">Cold sintering</span>
+            <span class="pub-tag">Ceramics</span>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-role="co">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">8</span>
+        <div class="pub-meta">
+          <div class="pub-role co">Co-Author</div>
+          <div class="pub-title">Self-Limiting Stoichiometry in SnSe Thin Films</div>
+          <div class="pub-journal"><strong>Nanoscale</strong> &middot; 2023 &middot; 20 citations</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Identified a self-limiting stoichiometric window in SnSe thin films grown by MBE, providing a processing guide for reproducible phase-pure deposition. Supported by DFT and molecular dynamics simulations.</p>
+          <div class="pub-tags">
+            <span class="pub-tag">SnSe</span>
+            <span class="pub-tag">Stoichiometry</span>
+            <span class="pub-tag">MBE</span>
+            <span class="pub-tag">DFT</span>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-role="co">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">9</span>
+        <div class="pub-meta">
+          <div class="pub-role co">Co-Author</div>
+          <div class="pub-title">Determining the Oxidation Stability of SnSe under Atmospheric Exposure</div>
+          <div class="pub-journal"><strong>MRS Communications</strong> &middot; 2024 &middot; 12 citations</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Assessed how SnSe thin films degrade under ambient conditions, mapping oxidation rate versus film thickness and surface termination to provide practical handling guidelines for device fabrication.</p>
+          <div class="pub-tags">
+            <span class="pub-tag">SnSe</span>
+            <span class="pub-tag">Oxidation</span>
+            <span class="pub-tag">Stability</span>
+            <span class="pub-tag">Air exposure</span>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-role="co">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">10</span>
+        <div class="pub-meta">
+          <div class="pub-role co">Co-Author</div>
+          <div class="pub-title">Epitaxial Stabilization and Tunable Oxygen Stoichiometry of R32 BaNiO<sub>3-x</sub> Thin Films via Pulsed Laser Deposition</div>
+          <div class="pub-journal"><strong>Journal of Materials Research</strong> &middot; 2026</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">PLD growth of the R32 polymorph of BaNiO<sub>3-x</sub> with systematic control of oxygen stoichiometry, demonstrating that deposition atmosphere directly programs the vacancy concentration and resulting electronic properties and phase.</p>
+          <div class="pub-tags">
+            <span class="pub-tag">BaNiO<sub>3</sub></span>
+            <span class="pub-tag">PLD</span>
+            <span class="pub-tag">Oxygen stoichiometry</span>
+            <span class="pub-tag">Epitaxy</span>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-role="first">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">11</span>
+        <div class="pub-meta">
+          <div class="pub-role">First Author &middot; Last Author</div>
+          <div class="pub-title">Reticulated Porous Lanthanum Strontium Manganite Structures for Solar Thermochemical Hydrogen Production</div>
+          <div class="pub-journal"><strong>International Journal of Hydrogen Energy</strong> &middot; 2022 &middot; 23 citations</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Optimized synthesis of reticulated ceramic foams using lanthanum strontium manganite for two-step solar thermochemical water splitting. Addresses the trade-off between surface area, structural integrity, and redox kinetics in porous oxide architectures.</p>
+          <div class="pub-tags">
+            <span class="pub-tag">Ceramics</span>
+            <span class="pub-tag">Hydrogen production</span>
+            <span class="pub-tag">Solar thermochemical</span>
+            <span class="pub-tag">LSMO</span>
+          </div>
+        </div>
+      </div>
+    </li>
+
+  </ul>
+
+  <!-- PRESENTATIONS LIST -->
+  <ul class="pub-list" id="pres-list" aria-label="Presentation list" hidden>
+
+    <li class="pub-item" data-type="oral">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">1</span>
+        <div class="pub-meta">
+          <div class="pub-role">Oral &middot; MRS Graduate Student Silver Award</div>
+          <div class="pub-title">Ferroelectricity in 2D SnSe Deposited via Pulsed Laser Deposition</div>
+          <div class="pub-journal"><strong>MRS Spring Meeting</strong> &middot; 2026</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Presented first bulk P-E and PUND measurements on PLD-grown 2D SnSe and introduced the wafer-scale mirror-rastered deposition route enabling monolayer-precision growth.</p>
+          <div class="pub-tags"><span class="pub-tag">SnSe</span><span class="pub-tag">PLD</span><span class="pub-tag">Ferroelectrics</span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-type="poster">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">2</span>
+        <div class="pub-meta">
+          <div class="pub-role">Poster &middot; Award Finalist</div>
+          <div class="pub-title">Two-Step Deposition of Platinum for Heteroepitaxial Growth</div>
+          <div class="pub-journal"><strong>TMS Annual Meeting</strong> &middot; 2026</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Presented the two-temperature deposition and substrate annealing approach for achieving near-bulk conductivity and record rocking-curve FWHM in (111) Pt electrode films. TMS Poster Award Finalist.</p>
+          <div class="pub-tags"><span class="pub-tag">Platinum</span><span class="pub-tag">Epitaxy</span><span class="pub-tag">Electrodes</span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-type="oral">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">3</span>
+        <div class="pub-meta">
+          <div class="pub-role">Oral</div>
+          <div class="pub-title">Thickness Scaling of (2h00) Oriented SnSe Deposited by Pulsed Laser Deposition</div>
+          <div class="pub-journal"><strong>ACS Sci-Mix</strong> &middot; 2026</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Reported thickness-dependent crystal structure and bandgap in PLD-grown SnSe, demonstrating systematic control of material properties through film thickness. Awarded 1st Place at ACS Sci-Mix.</p>
+          <div class="pub-tags"><span class="pub-tag">SnSe</span><span class="pub-tag">PLD</span><span class="pub-tag">Bandgap</span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-type="oral">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">4</span>
+        <div class="pub-meta">
+          <div class="pub-role">Oral &middot; Russell &amp; Sigurd Varian Award &middot; Thin Film Division Graduate Award</div>
+          <div class="pub-title">Interlayer-Modulated Coercive Field in HfZrO<sub>2</sub> Ferroelectric Devices</div>
+          <div class="pub-journal"><strong>AVS 71st International Symposium</strong> &middot; 2025</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Presented results on defect-dependent internal bias and coercive field modulation in HZO/Al<sub>2</sub>O<sub>3</sub> stacks, with mechanistic validation via phase-field simulation.</p>
+          <div class="pub-tags"><span class="pub-tag">HZO</span><span class="pub-tag">Defects</span><span class="pub-tag">Phase-field</span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-type="oral">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">5</span>
+        <div class="pub-meta">
+          <div class="pub-role">Oral</div>
+          <div class="pub-title">Controlled Growth of (200) SnSe by Pulsed Laser Deposition</div>
+          <div class="pub-journal"><strong>Electronic Materials and Applications</strong> &middot; 2025</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Described the deposition parameter space governing (200)-oriented SnSe film growth by PLD, establishing a reproducible route to phase-pure, orientation-controlled thin films.</p>
+          <div class="pub-tags"><span class="pub-tag">SnSe</span><span class="pub-tag">PLD</span><span class="pub-tag">Orientation</span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-type="poster">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">6</span>
+        <div class="pub-meta">
+          <div class="pub-role">Oral</div>
+          <div class="pub-title">Growth of SnSe Thin Films for Bulk Photovoltaic Effect Studies</div>
+          <div class="pub-journal"><strong>MRS Fall Meeting</strong> &middot; 2024</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Reported on the growth and characterization of SnSe thin films deposited by PLD for studying the bulk photovoltaic effect, with emphasis on structural quality and ferroelectric switching characterization.</p>
+          <div class="pub-tags"><span class="pub-tag">SnSe</span><span class="pub-tag">Photovoltaics</span><span class="pub-tag">PLD</span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-type="oral">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">7</span>
+        <div class="pub-meta">
+          <div class="pub-role">Oral</div>
+          <div class="pub-title">Stabilization of <em>P</em>6<sub>3</sub><em>cm</em> ScFeO<sub>3</sub> on (111) Pt Mediated via an Fe<sub>3</sub>O<sub>4</sub> Interlayer</div>
+          <div class="pub-journal"><strong>AVS 70th International Symposium</strong> &middot; 2024</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Presented the Fe<sub>3</sub>O<sub>4</sub> interlayer approach for selectively nucleating the polar polymorph of ScFeO<sub>3</sub> on conductive (111) Pt substrates, extending the interlayer-epitaxy strategy to device-compatible architectures.</p>
+          <div class="pub-tags"><span class="pub-tag">ScFeO<sub>3</sub></span><span class="pub-tag">Interlayer</span><span class="pub-tag">Platinum</span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-type="oral">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">8</span>
+        <div class="pub-meta">
+          <div class="pub-role">Oral</div>
+          <div class="pub-title">Growth of Hexagonal ScFeO<sub>3</sub> for Bulk Photovoltaic Effect Optoelectronics</div>
+          <div class="pub-journal"><strong>Electronic Materials Conference</strong> &middot; 2024</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Described growth and characterization of hexagonal ScFeO<sub>3</sub> thin films targeting bulk photovoltaic effect applications, including structural, optical, and ferroelectric property measurements.</p>
+          <div class="pub-tags"><span class="pub-tag">ScFeO<sub>3</sub></span><span class="pub-tag">Photovoltaics</span><span class="pub-tag">Optoelectronics</span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-type="oral">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">9</span>
+        <div class="pub-meta">
+          <div class="pub-role">Oral</div>
+          <div class="pub-title">Stabilizing Polar Polymorphs of Scandium Ferrite for Photovoltaics</div>
+          <div class="pub-journal"><strong>US-Japan Seminar on Dielectric and Piezoelectric Ceramics</strong> &middot; 2022</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Early presentation on the challenge of stabilizing the metastable polar polymorph of ScFeO<sub>3</sub> and the interfacial engineering approach used to access it for photovoltaic device studies.</p>
+          <div class="pub-tags"><span class="pub-tag">ScFeO<sub>3</sub></span><span class="pub-tag">Ferroelectrics</span><span class="pub-tag">Photovoltaics</span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-type="oral">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">10</span>
+        <div class="pub-meta">
+          <div class="pub-role">Oral</div>
+          <div class="pub-title">Developing Ferroelectric Rare-Earth Ferrites for Solar Energy Harvesting</div>
+          <div class="pub-journal"><strong>IEEE Winter FerroSchool Symposium</strong> &middot; 2022</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Presented the research program on hexagonal rare-earth ferrites as candidates for above-bandgap photovoltage generation, covering synthesis strategy, structural characterization, and early ferroelectric measurements.</p>
+          <div class="pub-tags"><span class="pub-tag">Rare-earth ferrites</span><span class="pub-tag">Solar energy</span><span class="pub-tag">Ferroelectrics</span></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="pub-item" data-type="poster">
+      <button class="pub-header" aria-expanded="false">
+        <span class="pub-num">11</span>
+        <div class="pub-meta">
+          <div class="pub-role">Oral</div>
+          <div class="pub-title">Functionalized Cellulose-Chitosan Membranes for Adsorption of Amine Compounds</div>
+          <div class="pub-journal"><strong>MRS Spring Meeting</strong> &middot; 2021</div>
+        </div>
+        <span class="pub-chevron" aria-hidden="true">&#9660;</span>
+      </button>
+      <div class="pub-body" role="region">
+        <div class="pub-body-inner">
+          <p class="pub-abstract">Presented undergraduate research on sulfonated nanocellulose-chitosan composites for opioid-simulant dye adsorption, including synthesis route, functional group characterization, and adsorption capacity measurements.</p>
+          <div class="pub-tags"><span class="pub-tag">Nanocellulose</span><span class="pub-tag">Water treatment</span><span class="pub-tag">Adsorption</span></div>
+        </div>
+      </div>
+    </li>
+
+  </ul>
+
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- AWARDS -->
+<section id="awards" class="section" aria-label="Honors and awards">
+  <p class="section-eyebrow">Recognition</p>
+  <h2 class="section-title">Honors &amp; Awards</h2>
+  <p class="section-lead reveal">Selected fellowships, prizes, and competitive recognitions from 2021 to 2026.</p>
+  <div class="awards-grid">
+
+    <div class="award-card">
+      <div class="award-icon"></div>
+      <div class="award-info">
+        <div class="award-name">Presidential Fellowship</div>
+        <div class="award-org">Georgia Institute of Technology &middot; 2021&ndash;2025</div>
+      </div>
+    </div>
+
+    <div class="award-card">
+      <div class="award-icon"></div>
+      <div class="award-info">
+        <div class="award-name">MRS Graduate Student Silver Award</div>
+        <div class="award-org">Materials Research Society &middot; 2026</div>
+      </div>
+    </div>
+
+    <div class="award-card">
+      <div class="award-icon"></div>
+      <div class="award-info">
+        <div class="award-name">Russell and Sigurd Varian Award</div>
+        <div class="award-org">AVS &middot; 2025</div>
+      </div>
+    </div>
+
+    <div class="award-card">
+      <div class="award-icon"></div>
+      <div class="award-info">
+        <div class="award-name">Acta Student Paper Award</div>
+        <div class="award-org">Acta Materialia, Inc. &middot; 2025</div>
+      </div>
+    </div>
+
+    <div class="award-card">
+      <div class="award-icon"></div>
+      <div class="award-info">
+        <div class="award-name">Thin Film Division Graduate Award</div>
+        <div class="award-org">AVS &middot; 2025</div>
+      </div>
+    </div>
+
+    <div class="award-card">
+      <div class="award-icon"></div>
+      <div class="award-info">
+        <div class="award-name">Novelis Graduate Scholar</div>
+        <div class="award-org">Georgia Tech MSE &middot; 2024</div>
+      </div>
+    </div>
+
+    <div class="award-card">
+      <div class="award-icon"></div>
+      <div class="award-info">
+        <div class="award-name">Frederick Rhines Scholar &mdash; Summa Cum Laude</div>
+        <div class="award-org">University of Florida &middot; 2021</div>
+      </div>
+    </div>
+
+    <div class="award-card">
+      <div class="award-icon"></div>
+      <div class="award-info">
+        <div class="award-name">1st Place &mdash; ACS Sci-Mix Presentation</div>
+        <div class="award-org">American Chemical Society &middot; 2026</div>
+      </div>
+    </div>
+
+    <div class="award-card">
+      <div class="award-icon"></div>
+      <div class="award-info">
+        <div class="award-name">1st Place &mdash; Electronic Materials</div>
+        <div class="award-org">GT MRS Poster Session &middot; 2026</div>
+      </div>
+    </div>
+
+    <div class="award-card">
+      <div class="award-icon"></div>
+      <div class="award-info">
+        <div class="award-name">TMS Poster Award Finalist</div>
+        <div class="award-org">The Minerals, Metals &amp; Materials Society &middot; 2026</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- METHODS -->
+<section id="methods" class="section" aria-label="Technical expertise">
+  <p class="section-eyebrow">Methods and Skills</p>
+  <h2 class="section-title">Technical<br>Expertise</h2>
+  <p class="section-lead reveal">A full-stack materials science toolkit, from chamber commissioning and vacuum deposition to nanoscale probe microscopy, X-ray analysis, and phase-field simulation.</p>
+
+  <div class="skills-grid" id="skills-container">
+
+    <div class="skill-group">
+      <p class="skill-group-title">Thin-Film Synthesis</p>
+      <div class="skill-tag-list">
+        <span class="skill-tag">Pulsed Laser Deposition (PLD)</span>
+        <span class="skill-tag">Molecular Beam Epitaxy (MBE)</span>
+        <span class="skill-tag">Electron-Beam Evaporation</span>
+        <span class="skill-tag">Photolithography</span>
+        <span class="skill-tag">Chamber Design &amp; Commissioning</span>
+        <span class="skill-tag">Spin Coating</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <p class="skill-group-title">Ferroelectric Characterization</p>
+      <div class="skill-tag-list">
+        <span class="skill-tag">P(E) Hysteresis</span>
+        <span class="skill-tag">PUND</span>
+        <span class="skill-tag">Piezoresponse Force Microscopy (PFM)</span>
+        <span class="skill-tag">Kelvin-Probe Force Microscopy</span>
+        <span class="skill-tag">Electrical Impedance Spectroscopy</span>
+        <span class="skill-tag">FORC Analysis</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <p class="skill-group-title">Structural and Chemical Analysis</p>
+      <div class="skill-tag-list">
+        <span class="skill-tag">XRD (HR, grazing-incidence, in-plane)</span>
+        <span class="skill-tag">X-ray Reflectivity (XRR)</span>
+        <span class="skill-tag">AFM</span>
+        <span class="skill-tag">SEM / EDS</span>
+        <span class="skill-tag">XPS</span>
+        <span class="skill-tag">SIMS</span>
+        <span class="skill-tag">Raman</span>
+        <span class="skill-tag">UV-Vis</span>
+        <span class="skill-tag">Ellipsometry</span>
+        <span class="skill-tag">Williamson-Hall Analysis</span>
+        <span class="skill-tag">Profex</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <p class="skill-group-title">Modeling and Computation</p>
+      <div class="skill-tag-list">
+        <span class="skill-tag">Phase-Field Simulation (FERRET/MOOSE)</span>
+        <span class="skill-tag">Landau-Ginzburg-Devonshire Theory</span>
+        <span class="skill-tag">Python</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <p class="skill-group-title">Scientific Communication</p>
+      <div class="skill-tag-list">
+        <span class="skill-tag">First-Author Journal Writing</span>
+        <span class="skill-tag">Conference Presentations</span>
+        <span class="skill-tag">NSF Facility Proposals</span>
+        <span class="skill-tag">Undergraduate Mentorship</span>
+        <span class="skill-tag">Teaching Assistance</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <p class="skill-group-title">Research Infrastructure</p>
+      <div class="skill-tag-list">
+        <span class="skill-tag">Vacuum System Maintenance</span>
+        <span class="skill-tag">PARADIM User Facility</span>
+        <span class="skill-tag">2DCC-MIP User Facility</span>
+        <span class="skill-tag">Lab Build-Out ($100K+ equipment)</span>
+        <span class="skill-tag">DOE EFRC Coordination</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- VISION -->
+<section id="vision" class="section" aria-label="Research vision">
+  <p class="section-eyebrow">Research Vision</p>
+  <h2 class="section-title">Where the<br>Work is Going</h2>
+  <p class="section-lead reveal">As device thickness shrinks, interfaces and defects increasingly dominate over bulk properties. Historically treated as degradation mechanisms, these effects also open routes to precisely tune material behavior. My goal is a unified framework in which interfaces and defects are tunable parameters governing electronic properties, enabling the stabilization, modulation, and enhancement of ferroelectricity across diverse material systems.</p>
+  <div class="vision-grid">
+    <div class="vision-card">
+      <div class="vision-num">01</div>
+      <h3 class="vision-title">Defect-Control in Emerging Ferroelectric Memory</h3>
+      <p class="vision-body">Wake-up, imprint, and fatigue in Wurtzite and fluorite devices trace to defect redistribution under cycling. Mapping the full defect-field-cycling phase space should make reliability modeling for FeRAM and FeFET devices more tractable.</p>
+    </div>
+    <div class="vision-card">
+      <div class="vision-num">02</div>
+      <h3 class="vision-title">Polar Materials for Photodetection</h3>
+      <p class="vision-body">With the right deposition approach, SnSe, ScFeO<sub>3</sub>, and LuFeO<sub>3</sub> combine visible-light band gaps with spontaneous polarization. Systematic interlayer and substrate engineering should push bulk photovoltaic efficiency toward the theoretical ceiling, enabling ultrafast light detection in downscalable devices with above-bandgap photovoltages.</p>
+    </div>
+    <div class="vision-card">
+      <div class="vision-num">03</div>
+      <h3 class="vision-title">Science Consultancy</h3>
+      <p class="vision-body">My training covers synthesis, characterization, modeling, and grant strategy. That combination is useful for advising technology development programs, materials qualification work, or R&amp;D roadmapping in the semiconductor and clean-energy sectors.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- CONTACT -->
+<section id="contact" aria-label="Contact">
+  <div class="contact-inner">
+    <p class="contact-eyebrow">Contact</p>
+    <h2 class="contact-title">Let's Connect</h2>
+    <p class="contact-sub">Open to postdoctoral positions, research collaborations, and science consultancy engagements.</p>
+
+    <div class="contact-grid">
+      <div class="contact-links">
+        <button class="contact-link" onclick="copyText('marshallfrye@me.com')" aria-label="Copy personal email address">
+          <div class="contact-link-left">
+            <span class="contact-link-label">marshallfrye@me.com</span>
+            <span class="contact-link-sub">Personal</span>
+          </div>
+          <span class="copy-badge">Copy</span>
+        </button>
+        <button class="contact-link" onclick="copyText('mfrye8@gatech.edu')" aria-label="Copy Georgia Tech email address">
+          <div class="contact-link-left">
+            <span class="contact-link-label">mfrye8@gatech.edu</span>
+            <span class="contact-link-sub">Georgia Tech academic</span>
+          </div>
+          <span class="copy-badge">Copy</span>
+        </button>
+        <a class="contact-link" href="http://www.linkedin.com/in/marshall-frye-172a65157" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+          <div class="contact-link-left">
+            <span class="contact-link-label">LinkedIn</span>
+            <span class="contact-link-sub">Professional profile</span>
+          </div>
+          <span class="copy-badge">&#8599;</span>
+        </a>
+        <a class="contact-link" href="https://scholar.google.com/citations?user=gLYwyj4AAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar profile">
+          <div class="contact-link-left">
+            <span class="contact-link-label">Google Scholar</span>
+            <span class="contact-link-sub">Full publication list and citation metrics</span>
+          </div>
+          <span class="copy-badge">&#8599;</span>
+        </a>
+      </div>
+
+      <div class="availability">
+        <h3 class="avail-title">Current Availability</h3>
+        <div class="avail-items">
+          <div class="avail-item">
+            <div class="avail-dot"></div>
+            <div>
+              <div class="avail-item-title">Postdoctoral Positions</div>
+              <div class="avail-item-body">Available from Summer 2026, looking for synthesis-forward programs in ferroelectrics, memory materials, or 2D systems.</div>
+            </div>
+          </div>
+          <div class="avail-item">
+            <div class="avail-dot"></div>
+            <div>
+              <div class="avail-item-title">Research Collaborations</div>
+              <div class="avail-item-body">Open to joint proposals, shared beam-time, or co-mentorship arrangements.</div>
+            </div>
+          </div>
+          <div class="avail-item">
+            <div class="avail-dot"></div>
+            <div>
+              <div class="avail-item-title">Science Consultancy</div>
+              <div class="avail-item-body">Selective engagements in materials characterization strategy, thin-film process development, or R&amp;D program advising.</div>
+            </div>
+          </div>
+          <div class="avail-item">
+            <div class="avail-dot"></div>
+            <div>
+              <div class="avail-item-title">Speaking and Reviewing</div>
+              <div class="avail-item-body">Available for conference talks and manuscript peer review. Please include timeline.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Marshall B. Frye &nbsp;&middot;&nbsp; Ph.D. Materials Science and Engineering, Georgia Institute of Technology &nbsp;&middot;&nbsp; <a href="mailto:marshallfrye@me.com">marshallfrye@me.com</a></p>
+</footer>
+
+<script>
+// ── Copy to clipboard ──
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard'));
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── Back to top ──
+const btt = document.getElementById('btt');
+window.addEventListener('scroll', () => {
+  btt.classList.toggle('show', window.scrollY > 400);
+}, { passive: true });
+
+// ── Nav scroll shadow ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 10);
+}, { passive: true });
+
+// ── Active nav link ──
+const sections = document.querySelectorAll('section[id], main > section[id]');
+const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-50% 0px -50% 0px' });
+document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+
+// ── Hamburger ──
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded', open);
+  mobileMenu.setAttribute('aria-hidden', !open);
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', false);
+  });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', false);
+  }
+});
+
+// ── Accordion (shared by publications and presentations) ──
+function initAccordion(list) {
+  list.querySelectorAll('.pub-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.pub-item');
+      const body = item.querySelector('.pub-body');
+      const isOpen = item.classList.contains('open');
+      // Close all within same list
+      list.querySelectorAll('.pub-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.pub-body').style.maxHeight = null;
+        i.querySelector('.pub-header').setAttribute('aria-expanded', false);
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded', true);
+      }
+    });
+    btn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+    });
+  });
+}
+initAccordion(document.getElementById('pub-list'));
+initAccordion(document.getElementById('pres-list'));
+
+// ── Publication / Presentation filter ──
+const pubBtns = document.querySelectorAll('.pub-btn');
+const pubList = document.getElementById('pub-list');
+const presList = document.getElementById('pres-list');
+
+function closeAll(items) {
+  items.forEach(item => {
+    if (item.classList.contains('open')) {
+      item.classList.remove('open');
+      item.querySelector('.pub-body').style.maxHeight = null;
+      item.querySelector('.pub-header').setAttribute('aria-expanded', false);
+    }
+  });
+}
+
+pubBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    pubBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+
+    if (filter === 'presentations') {
+      pubList.hidden = true;
+      presList.hidden = false;
+    } else {
+      presList.hidden = true;
+      pubList.hidden = false;
+      const pubItems = pubList.querySelectorAll('.pub-item');
+      pubItems.forEach(item => {
+        if (filter === 'all' || item.dataset.role === filter) {
+          item.hidden = false;
+        } else {
+          item.hidden = true;
+          if (item.classList.contains('open')) {
+            item.classList.remove('open');
+            item.querySelector('.pub-body').style.maxHeight = null;
+            item.querySelector('.pub-header').setAttribute('aria-expanded', false);
+          }
+        }
+      });
+    }
+  });
+});
+
+// ── Scroll reveal ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      e.target.classList.add('revealed');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal, .research-card, .award-card, .vision-card').forEach((el, i) => {
+  // stagger cards in the same parent
+  const siblings = el.parentElement.querySelectorAll('.research-card, .award-card, .vision-card');
+  const idx = Array.from(siblings).indexOf(el);
+  if (idx > 0) el.style.transitionDelay = (idx * 0.08) + 's';
+  revealObserver.observe(el);
+});
+
+</script>
+
+</body>
+</html>
