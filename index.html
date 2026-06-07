@@ -478,37 +478,79 @@
     ══════════════════════════ */
     .research-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: var(--sp-4); margin-top: var(--sp-12);
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-8); margin-top: var(--sp-12);
+    }
+    @media (max-width: 768px) {
+      .research-grid { grid-template-columns: 1fr; }
     }
     .research-card {
       background: var(--c-surface);
       border: 1px solid var(--c-border);
       border-radius: var(--r-lg);
-      padding: var(--sp-6) var(--sp-6) var(--sp-8);
-      position: relative; overflow: hidden;
+      overflow: hidden;
+      position: relative;
+      display: flex; flex-direction: column;
       transition: transform var(--dur-mid) var(--ease-out),
                   box-shadow var(--dur-mid) var(--ease-out),
-                  border-color var(--dur-mid);
+                  border-color var(--dur-mid),
+                  opacity var(--dur-slow) var(--ease-out);
       cursor: default;
+      opacity: 0; transform: translateY(28px);
+    }
+    .research-card.revealed { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .research-card { opacity: 1; transform: none; transition: box-shadow var(--dur-mid), border-color var(--dur-mid); }
     }
     .research-card::before {
       content: ''; position: absolute;
-      top: 0; left: 0; right: 0; height: 2px;
+      top: 0; left: 0; right: 0; height: 3px;
       background: var(--c-accent);
       transform: scaleX(0); transform-origin: left;
       transition: transform var(--dur-mid) var(--ease-out);
+      z-index: 1;
     }
-    .research-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-      border-color: var(--c-border-mid);
-    }
+    .research-card:hover { box-shadow: var(--shadow-lg); border-color: var(--c-border-mid); }
     .research-card:hover::before { transform: scaleX(1); }
+    /* tilt is driven by JS — keep perspective on the grid */
+    .research-grid { perspective: 1000px; }
+
+    .card-img-wrap {
+      width: 100%; aspect-ratio: 16/9;
+      overflow: hidden; background: var(--c-bg-alt);
+      position: relative; flex-shrink: 0;
+    }
+    .card-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; loading: lazy;
+      transition: transform 600ms var(--ease-out);
+    }
+    .research-card:hover .card-img-wrap img { transform: scale(1.04); }
+    .card-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--c-bg-alt) 0%, var(--c-accent-xlt) 100%);
+    }
+    .card-img-placeholder span {
+      font-family: var(--ff-mono); font-size: var(--ts-xs);
+      color: var(--c-muted-lt); letter-spacing: .1em; text-transform: uppercase;
+    }
+    .card-img-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: var(--sp-2) var(--sp-3);
+      background: linear-gradient(to top, rgba(9,9,11,.6) 0%, transparent 100%);
+      font-family: var(--ff-mono); font-size: .6rem;
+      color: rgba(255,255,255,.8); letter-spacing: .08em; text-transform: uppercase;
+    }
+    .card-content {
+      padding: var(--sp-6) var(--sp-8) var(--sp-8);
+      display: flex; flex-direction: column; flex: 1;
+    }
     .card-index {
       font-family: var(--ff-mono); font-size: var(--ts-xs);
-      font-weight: 500; color: var(--c-muted-lt);
-      letter-spacing: .08em; margin-bottom: var(--sp-4);
+      font-weight: 500; color: var(--c-accent);
+      letter-spacing: .1em; margin-bottom: var(--sp-2);
+      text-transform: uppercase;
     }
     .card-title {
       font-family: var(--ff-head); font-size: var(--ts-xl);
@@ -517,7 +559,7 @@
     }
     .card-body {
       font-size: var(--ts-sm); color: var(--c-muted);
-      line-height: 1.7;
+      line-height: 1.75; flex: 1;
     }
 
     /* ══════════════════════════
@@ -823,14 +865,13 @@
       margin-bottom: var(--sp-12); max-width: 560px; line-height: 1.7;
     }
     .contact-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-16);
+      display: flex; flex-direction: column; gap: var(--sp-6);
     }
-    @media (max-width: 700px) { .contact-grid { grid-template-columns: 1fr; } }
-    .contact-links { display: flex; flex-direction: column; gap: var(--sp-2); }
+    .contact-links { display: flex; flex-direction: row; flex-wrap: wrap; gap: var(--sp-2); align-items: center; }
     .contact-link {
       display: flex; align-items: center;
-      justify-content: space-between;
-      padding: var(--sp-4) var(--sp-4);
+      justify-content: space-between; gap: var(--sp-3);
+      padding: var(--sp-2) var(--sp-3);
       border: 1px solid rgba(255,255,255,.1);
       border-radius: var(--r-md);
       cursor: pointer;
@@ -843,11 +884,12 @@
     }
     .contact-link-info { display: flex; flex-direction: column; gap: .15rem; }
     .contact-link-name {
-      color: #fff; font-size: var(--ts-base); font-weight: 600;
+      color: #fff; font-size: var(--ts-sm); font-weight: 600;
     }
     .contact-link-sub {
       font-family: var(--ff-mono); font-size: var(--ts-xs);
       color: rgba(255,255,255,.35); letter-spacing: .04em;
+      display: none;
     }
     .contact-badge {
       font-family: var(--ff-mono); font-size: .625rem;
@@ -965,12 +1007,12 @@
     <div class="hero-stats" aria-label="Research statistics">
       <div class="stat-item">
         <span class="stat-unit">Publications</span>
-        <span class="stat-num" data-count="13">0</span>
+        <span class="stat-num" data-count="11">0</span>
         <span class="stat-label">Peer-reviewed</span>
       </div>
       <div class="stat-item">
         <span class="stat-unit">First Author</span>
-        <span class="stat-num" data-count="7">0</span>
+        <span class="stat-num" data-count="6">0</span>
         <span class="stat-label">Papers</span>
       </div>
       <hr class="stat-divider">
@@ -1006,9 +1048,8 @@
       <p class="about-photo-label">Marshall B. Frye &nbsp;·&nbsp; Georgia Tech</p>
     </div>
     <div class="about-text">
-      <p class="about-para reveal">I am a PhD in Materials Science and Engineering from Georgia Institute of Technology. My research centers on a single underlying question: how do interfaces and defects determine whether a material is ferroelectric, and how do we use that understanding to design better materials on purpose?</p>
-      <p class="about-para reveal">That question has taken me from building and commissioning deposition chambers, to growing thin films with monolayer precision, to writing phase-field simulations in MOOSE that reproduce what I measure under the microscope. The work has produced 13 peer-reviewed papers, 11 conference presentations, and recognition from MRS, AVS, and Acta Materialia.</p>
-      <p class="about-para reveal">I grew up in Florida and completed my undergraduate degree in Materials Science and Engineering at the University of Florida, graduating summa cum laude. I came to Georgia Tech on a Presidential Fellowship. Outside the lab, I have mentored four undergraduate researchers through the full arc of experimental work, from hypothesis to publication.</p>
+      <p class="about-para reveal">I recently earned my PhD in Materials Science and Engineering from Georgia Tech. My research centers on a single underlying question: how can we control defects and interfaces to design emergent electronic materials and devices?</p>
+      <p class="about-para reveal">That question has taken me from growing thin films with monolayer precision and uncovering interlayer epitaxy, to writing phase-field simulations to elucidate the fundamental mechanisms of defects in enhancing device performance. The work has produced 11 peer-reviewed papers, 11 conference presentations, and recognition from MRS, AVS, and Acta Materialia.</p>
       <div class="education-block reveal">
         <div class="edu-row">
           <span class="edu-degree-badge">Ph.D.</span>
@@ -1016,7 +1057,7 @@
             <div class="edu-institution">Georgia Institute of Technology</div>
             <div class="edu-field">Materials Science and Engineering</div>
           </div>
-          <span class="edu-year">2021 &ndash; 2026 &nbsp;&middot;&nbsp; Conferred</span>
+          <span class="edu-year">2021 &ndash; 2026;</span>
         </div>
         <div class="edu-row">
           <span class="edu-degree-badge">B.S.</span>
@@ -1039,26 +1080,55 @@
   <h2 class="section-title">Engineering <strong>Polar</strong><br>Materials</h2>
   <p class="section-body reveal">I work at the intersection of synthesis, characterization, and phase-field simulation to understand what governs ferroelectric behavior, and how to use that understanding to build better materials for memory and energy applications.</p>
   <div class="research-grid">
-    <div class="research-card reveal">
-      <p class="card-index">01 / Interface &amp; Defect Engineering</p>
-      <h3 class="card-title">Defect-Controlled Switching in HZO</h3>
-      <p class="card-body">Oxygen vacancies and interfacial charge do not just degrade devices. They control how polarization switches. In Hf<sub>0.5</sub>Zr<sub>0.5</sub>O<sub>2</sub>, I have mapped how defect populations set the internal bias, coercive field, and remanent polarization.</p>
+
+    <div class="research-card">
+      <div class="card-img-wrap">
+        <img src="HZO Fig.png" alt="Ferroelectric switching and defect characterization in HfZrO2 thin films" loading="lazy">
+        <span class="card-img-label">Defect-mediated switching in Hf<sub>0.5</sub>Zr<sub>0.5</sub>O<sub>2</sub></span>
+      </div>
+      <div class="card-content">
+        <p class="card-index">01 / Interface &amp; Defect Engineering</p>
+        <h3 class="card-title">Defect-Controlled Switching in HZO</h3>
+        <p class="card-body">Oxygen vacancies and interfacial charge do not just degrade devices. They control how polarization switches. In Hf<sub>0.5</sub>Zr<sub>0.5</sub>O<sub>2</sub>, I have mapped how defect populations set the internal bias, coercive field, and remanent polarization.</p>
+      </div>
     </div>
-    <div class="research-card reveal">
-      <p class="card-index">02 / 2D Ferroelectrics</p>
-      <h3 class="card-title">SnSe at the 2D Limit</h3>
-      <p class="card-body">SnSe is a van der Waals material with predicted structural transitions approaching the 2D limit. I developed wafer-scale PLD deposition with monolayer precision and reported the first bulk P-E and PUND measurements on this system.</p>
+
+    <div class="research-card">
+      <div class="card-img-wrap">
+        <img src="SnSe Fig.png" alt="PLD deposition of 2D SnSe thin films showing crystal structure evolution and ferroelectric P-E hysteresis" loading="lazy">
+        <span class="card-img-label">PLD growth &amp; ferroelectric switching in 2D SnSe</span>
+      </div>
+      <div class="card-content">
+        <p class="card-index">02 / 2D Ferroelectrics</p>
+        <h3 class="card-title">SnSe at the 2D Limit</h3>
+        <p class="card-body">SnSe is a van der Waals material with predicted structural transitions approaching the 2D limit. I developed wafer-scale PLD deposition with monolayer precision and reported the first bulk ferroelectric switching (P-E and PUND) measurements on this system.</p>
+      </div>
     </div>
-    <div class="research-card reveal">
-      <p class="card-index">03 / Hexagonal Ferrites</p>
-      <h3 class="card-title">Metastable Rare-Earth Oxides</h3>
-      <p class="card-body">Hexagonal ferrites have unique potential for multiferroic and polar photovoltaic applications. I used interfacial engineering to elucidate the stabilization mechanism of ScFeO<sub>3</sub> and expanded the approach to conductive substrates needed for devices.</p>
+
+    <div class="research-card">
+      <div class="card-img-wrap">
+        <img src="SFO Fig.png" alt="ScFeO3 hexagonal ferrite thin film growth and characterization" loading="lazy" style="object-fit: contain; background: var(--c-surface);">
+        <span class="card-img-label">Epitaxial stabilization &amp; multiferroic properties of ScFeO<sub>3</sub></span>
+      </div>
+      <div class="card-content">
+        <p class="card-index">03 / Hexagonal Ferrites</p>
+        <h3 class="card-title">Metastable Rare-Earth Oxides</h3>
+        <p class="card-body">Hexagonal ferrites have unique potential for multiferroic and polar photovoltaic applications. I used interfacial engineering to elucidate the stabilization mechanism of ScFeO<sub>3</sub> and expanded the approach to conductive substrates needed for devices.</p>
+      </div>
     </div>
-    <div class="research-card reveal">
-      <p class="card-index">04 / Photovoltaics &amp; Memory</p>
-      <h3 class="card-title">Ferroelectric Photovoltaics</h3>
-      <p class="card-body">Ferroelectric polarization can store bits and separate light-generated charge above the bandgap limit. In an invited review in Accounts of Materials Research, I laid out why ferroelectric solar cells have underperformed and what material changes could make them competitive.</p>
+
+    <div class="research-card">
+      <div class="card-img-wrap">
+        <img src="Devices Fig.png" alt="Ferroelectric memory and photodetector devices based on oxide thin films" loading="lazy" style="object-fit: contain; background: var(--c-surface);">
+        <span class="card-img-label">Oxide-based memory &amp; photodetector devices</span>
+      </div>
+      <div class="card-content">
+        <p class="card-index">04 / Photovoltaics &amp; Memory</p>
+        <h3 class="card-title">Functional Devices</h3>
+        <p class="card-body">Ferroic materials are not only exciting for their exotic physics, but also for emergent devices. By tuning material properties through defects and interface engineering, ferroic materials display unique promise for memory, sensing, and photodetector applications.</p>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -1121,7 +1191,7 @@
 <section id="publications" class="section" aria-label="Publications">
   <p class="section-label">Research Highlights</p>
   <h2 class="section-title"><strong>Publications</strong></h2>
-  <p class="section-body reveal">13 peer-reviewed publications &middot; 7 first author &middot; 1 last author. Click any paper to expand the abstract.</p>
+  <p class="section-body reveal">11 peer-reviewed publications &middot; 6 first author &middot; 1 last author. Click any paper to expand the abstract.</p>
 
   <div class="pub-controls" role="group" aria-label="Filter publications">
     <button class="pub-btn active" data-filter="all">All (11)</button>
@@ -1305,7 +1375,7 @@
       <button class="pub-header" aria-expanded="false">
         <span class="pub-index">11</span>
         <div class="pub-meta">
-          <div class="pub-role">Co-Author &nbsp;&middot;&nbsp; Last Author</div>
+          <div class="pub-role">Co-Author</div>
           <div class="pub-title">Reticulated Porous Lanthanum Strontium Manganite Structures for Solar Thermochemical Hydrogen Production</div>
           <div class="pub-venue">International Journal of Hydrogen Energy &nbsp;&middot;&nbsp; 2022 &nbsp;&middot;&nbsp; 23 citations</div>
         </div>
@@ -1598,25 +1668,32 @@
 <!-- ═══ RESEARCH AGENDA ═══ -->
 <section id="agenda" class="section" aria-label="Research agenda">
   <p class="section-label">Research Agenda</p>
-  <h2 class="section-title">Where the <strong>Work</strong><br>is Going</h2>
-  <p class="section-body reveal">As device thickness shrinks, interfaces and defects increasingly dominate over bulk properties. My goal is a unified framework in which these effects are tunable parameters governing electronic behavior, enabling the stabilization, modulation, and enhancement of ferroelectricity across diverse material systems.</p>
+  <h2 class="section-title">Where My <strong>Research</strong><br>is Going</h2>
+  <p class="section-body reveal">As devices are scaled down, interfaces and defects increasingly dominate over bulk properties. My goal is a unified framework in which these effects are tunable parameters governing electronic behavior, enabling the stabilization, modulation, and enhancement of ferroelectricity and other emergent properties across diverse material systems.</p>
   <div class="vision-list" role="list">
     <div class="vision-item" role="listitem">
       <div class="vision-num-col">01</div>
       <div class="vision-content">
         <h3 class="vision-title">Defect-Control in Emerging Ferroelectric Memory</h3>
-        <p class="vision-body">Wake-up, imprint, and fatigue in Wurtzite and fluorite devices trace to defect redistribution under cycling. Mapping the full defect-field-cycling phase space should make reliability modeling for FeRAM and FeFET devices more tractable.</p>
+        <p class="vision-body">Wake-up, imprint, and fatigue in wurtzite and fluorite devices are typically attributed to defect formation and redistribution under cycling. Developing methods to understand and control these defects should make reliability for FeRAM and FeFET devices more tractable.</p>
       </div>
     </div>
     <div class="vision-item" role="listitem">
       <div class="vision-num-col">02</div>
+      <div class="vision-content">
+        <h3 class="vision-title">Emerging Multiferroic Materials</h3>
+        <p class="vision-body">Ferroelectric, (anti)ferromagnetic, and ferroelasticity have been theoretically predicted across a range of materials; yet experimental realization of these materials has lagged. In order to enable magnetoelectric sensors, 2D MESO logic, and tunnel junctions I will use targetted thin film deposition techniques to stabilize these materials and measure emergent phenomena.</p>
+      </div>
+    </div>
+    <div class="vision-item" role="listitem">
+      <div class="vision-num-col">03</div>
       <div class="vision-content">
         <h3 class="vision-title">Polar Materials for Photodetection</h3>
         <p class="vision-body">With the right deposition approach, SnSe, ScFeO<sub>3</sub>, and LuFeO<sub>3</sub> combine visible-light band gaps with spontaneous polarization. Systematic interlayer and substrate engineering should push bulk photovoltaic efficiency toward the theoretical ceiling, enabling ultrafast light detection with above-bandgap photovoltages.</p>
       </div>
     </div>
     <div class="vision-item" role="listitem">
-      <div class="vision-num-col">03</div>
+      <div class="vision-num-col">04</div>
       <div class="vision-content">
         <h3 class="vision-title">Science Consultancy</h3>
         <p class="vision-body">My training covers synthesis, characterization, modeling, and grant strategy. That combination is useful for advising technology development programs, materials qualification work, or R&amp;D roadmapping in the semiconductor and clean-energy sectors.</p>
@@ -1633,7 +1710,7 @@
   <div class="contact-inner">
     <p class="contact-label">Contact</p>
     <h2 class="contact-title">Let's <strong>Connect</strong></h2>
-    <p class="contact-sub">Available now for postdoctoral positions, research collaborations, and selective science consultancy engagements. Conference talks and manuscript peer review welcome — please include timeline.</p>
+    <p class="contact-sub">Available now for postdoctoral positions, research collaborations, and science consultancy.</p>
     <div class="contact-grid">
       <div class="contact-links">
         <button class="contact-link" onclick="copyText('marshallfrye@me.com')" aria-label="Copy personal email">
@@ -1676,21 +1753,19 @@
           </div>
           <span class="contact-badge">↗</span>
         </a>
-      </div>
-      <div style="margin-top: var(--sp-4); display: flex; gap: var(--sp-3); flex-wrap: wrap;">
-        <a href="Marshall_Frye_CV.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.45rem;padding:.5rem 1rem;border:1px solid rgba(255,255,255,.2);border-radius:var(--r-sm);color:#fff;font-size:var(--ts-sm);font-weight:500;background:rgba(255,255,255,.07);transition:background var(--dur-fast);" onmouseover="this.style.background='rgba(255,255,255,.14)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span style="width:1px;height:24px;background:rgba(255,255,255,.12);margin:0 var(--sp-1);flex-shrink:0;"></span>
+        <a href="Marshall_Frye_CV.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;padding:.375rem .75rem;border:1px solid rgba(255,255,255,.2);border-radius:var(--r-sm);color:#fff;font-size:var(--ts-sm);font-weight:500;background:rgba(255,255,255,.07);transition:background var(--dur-fast);white-space:nowrap;" onmouseover="this.style.background='rgba(255,255,255,.14)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Academic CV
         </a>
-        <a href="Marshall_Frye_Resume.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.45rem;padding:.5rem 1rem;border:1px solid rgba(255,255,255,.2);border-radius:var(--r-sm);color:#fff;font-size:var(--ts-sm);font-weight:500;background:rgba(255,255,255,.07);transition:background var(--dur-fast);" onmouseover="this.style.background='rgba(255,255,255,.14)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <a href="Marshall_Frye_Resume.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;padding:.375rem .75rem;border:1px solid rgba(255,255,255,.2);border-radius:var(--r-sm);color:#fff;font-size:var(--ts-sm);font-weight:500;background:rgba(255,255,255,.07);transition:background var(--dur-fast);white-space:nowrap;" onmouseover="this.style.background='rgba(255,255,255,.14)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Industry Resume
         </a>
       </div>
-      <div style="height:var(--sp-4)"></div>
       <div class="contact-avail">
-        <p class="contact-avail-title">Seeking synthesis-forward postdoctoral programs in ferroelectrics, memory materials, or 2D systems.</p>
-        <p class="contact-avail-body">Open to joint proposals, shared beam-time, and co-mentorship arrangements with groups at national labs or research universities. For consultancy inquiries, please reach out via email with a brief description of the engagement.</p>
+        <p class="contact-avail-title">Seeking postdoctoral programs to combine synthesis and nanoscale characterization in ferroelectrics, memory materials, or 2D systems.</p>
+        <p class="contact-avail-body">Open to joint proposals, shared beam-time, and co-mentorship arrangements with groups at national labs or research universities.</p>
       </div>
     </div>
   </div>
@@ -1825,16 +1900,33 @@ const revealObserver = new IntersectionObserver(entries => {
     }
   });
 }, { threshold: 0.08 });
-document.querySelectorAll('.reveal, .research-card, .award-row, .vision-item').forEach((el, i) => {
-  const siblings = el.parentElement.querySelectorAll(
-    '.research-card, .award-row, .vision-item, .method-group'
-  );
+
+// Generic reveal elements (awards, vision, simple reveals)
+document.querySelectorAll('.reveal, .award-row, .vision-item').forEach(el => {
+  const siblings = el.parentElement.querySelectorAll('.award-row, .vision-item');
   const idx = Array.from(siblings).indexOf(el);
   if (idx >= 0) el.style.transitionDelay = (idx * 55) + 'ms';
   revealObserver.observe(el);
 });
+
+// Research cards — own observer with staggered image-aware timing
+const cardObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('revealed');
+      cardObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.research-card').forEach((el, i) => {
+  el.style.transitionDelay = (i * 100) + 'ms';
+  cardObserver.observe(el);
+});
+
+// Method groups
 document.querySelectorAll('.method-group').forEach((el, i) => {
   el.style.transitionDelay = (i * 55) + 'ms';
+  revealObserver.observe(el);
 });
 
 // ── Copy ──
@@ -1846,6 +1938,65 @@ function copyText(t) {
     setTimeout(() => toast.classList.remove('show'), 2800);
   });
 }
+
+// ── 3D card tilt ──
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('.research-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width  - 0.5;  // -0.5 to 0.5
+      const y = (e.clientY - r.top)  / r.height - 0.5;
+      const rotY =  x * 2;
+      const rotX = -y * 2;
+      const lift = 6;
+      card.style.transform = `translateY(-${lift}px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+      card.style.transition = 'transform 80ms linear, box-shadow var(--dur-mid), border-color var(--dur-mid)';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform 500ms var(--ease-out), box-shadow var(--dur-mid), border-color var(--dur-mid), opacity var(--dur-slow) var(--ease-out)';
+    });
+  });
+}
+
+// ── Hero name fade-in left to right ──
+(function() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  ['.hero-name', '.hero-name-sub'].forEach((sel, i) => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    el.style.clipPath = 'inset(0 100% 0 0)';
+    el.style.opacity = '1';
+    setTimeout(() => {
+      el.style.transition = 'clip-path 1400ms var(--ease-out)';
+      el.style.clipPath = 'inset(0 0% 0 0)';
+    }, 120 + i * 220);
+  });
+})();
+
+// ── Magnetic pull on nav links + CTA buttons ──
+(function() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const targets = [
+    ...document.querySelectorAll('.nav-links a'),
+    ...document.querySelectorAll('.btn-primary, .btn-ghost, .nav-cta')
+  ];
+  targets.forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width  / 2;
+      const cy = r.top  + r.height / 2;
+      const dx = (e.clientX - cx) * 0.10;
+      const dy = (e.clientY - cy) * 0.10;
+      el.style.transform = `translate(${dx}px, ${dy}px)`;
+      el.style.transition = 'transform 100ms linear';
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = '';
+      el.style.transition = 'transform 400ms var(--ease-out)';
+    });
+  });
+})();
 </script>
 </body>
 </html>
